@@ -1,0 +1,26 @@
+.sub-navbar {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /*font-weight: 500;*/
+}
+.nav-link {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+.nav-link:hover {
+    color: #d7a734;
+}
+
+.dropdown-menu{
+    position: relative;
+    z-index: 20000!important;
+}
+
+.navbar{
+    z-index: 10000!important;
+}
+
+.container{
+  background:linear-gradient(180deg, rgba(240, 244, 236, 1), rgb(248,183,89) 100%) !important;
+}

@@ -1,0 +1,39 @@
+.card-cover{
+    border: 3px solid #ffdb99;
+  }
+  .card:hover{
+    border: 2px solid #212529;
+    overflow: visible !important;
+    transition: ease-in 500ms;
+  }
+  
+  .card:hover .card-img-top{
+    transform: rotate(36deg)  scale(1.1); 
+    position: relative;
+    transition: cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 5000000;
+    transition: ease-in-out 500ms;
+  }
+  .title-text{
+    color:rgb(255, 255, 255);
+    text-shadow: 2px 2px 5px #090909be;
+    font-weight: bold;
+  }
+  .card-container{
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  
+  .glass:hover {
+  background: white !important;
+  transition: ease-in-out 500ms;
+  }
+  
+  .glass{
+    background: rgba(255,255,255,0.5)!important;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.25);
+  }

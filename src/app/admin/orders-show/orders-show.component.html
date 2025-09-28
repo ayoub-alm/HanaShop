@@ -1,0 +1,40 @@
+<mat-card class="p-3 shadow-sm bg-white">
+    <mat-card-header>
+        <mat-card-title class="text-primary">Commande #{{ order.id }}</mat-card-title>
+        <mat-card-subtitle>Status:
+            <span [ngClass]="{
+        'text-warning': order.status === 'new',
+        'text-primary': order.status === 'in-progress',
+        'text-success': order.status === 'done'
+      }">{{ order.status | titlecase }}</span>
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <p><strong>Type:</strong> {{ order.type }}</p>
+
+        <div *ngIf="order.products && order.products.length > 0" class="mt-3">
+            <h6 class="text-secondary">Produits:</h6>
+            <ul class="list-group mb-3">
+                <li *ngFor="let item of order.products" class="list-group-item d-flex justify-content-between">
+                    <span>{{ item.name }} (x{{ item.quantity }})</span>
+                    <span>{{ item.price * item.quantity | currency:'MAD':'symbol' }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <p><strong>Total:</strong> {{ getTotal(order.products) | currency:'MAD':'symbol' }}</p>
+    </mat-card-content>
+
+    <mat-card-actions class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" (click)="onAccept(order)" *ngIf="order.status === 'new'">
+            <mat-icon class="me-1">check_circle</mat-icon> Accepter
+        </button>
+        <button mat-raised-button color="accent" (click)="onDeliver(order)" *ngIf="order.status === 'in-progress'">
+            <mat-icon class="me-1">local_shipping</mat-icon> Marquer comme Livré
+        </button>
+        <button mat-raised-button color="warn" (click)="onCancel(order)" *ngIf="order.status !== 'done'">
+            <mat-icon class="me-1">cancel</mat-icon> Annuler
+        </button>
+    </mat-card-actions>
+</mat-card>

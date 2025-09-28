@@ -1,0 +1,153 @@
+
+<div class="container" id="categories"  >
+<!--<div class="container-fluid px-lg-3 mt-3 pt-3    " >-->
+<!--      <div class="d-flex justify-content-around row "  style="overflow-x: auto; white-space: nowrap;overflow-y: visible;">-->
+<!--       <div class="card-container">-->
+<!--        <div  (click)="getAllProducts()"-->
+<!--         class=" mx-2 mat-elevation-z3 rounded-2 border border-secondary align-items-center border-1-->
+<!--          d-flex justify-content-around px-3 py-1 text-white bg-cheese-yellow ">-->
+<!--          <li class=" rounded-4  d-flex justify-content-around align-items-center" >-->
+<!--            <div class="mx-1"  >-->
+<!--           <mat-icon>local_fire_department</mat-icon>-->
+<!--            </div>-->
+<!--            <div class=" fw-bold">Tous</div>-->
+<!--           </li>-->
+<!--        </div>-->
+<!--        <div *ngFor="let category of productCategories | async"-->
+<!--        (click)="getProductsByCategory(category.ref)"-->
+<!--         class=" mx-2 mat-elevation-z2 bg-white rounded-2 border border-secondary align-items-center border-1 d-flex justify-content-around px-3 py-1 ">-->
+<!--          <li mat-card class=" rounded-4 bg-white  d-flex justify-content-around" >-->
+<!--            <div class="mx-1 bg-white">-->
+<!--            <img matChipAvatar [src]="category.icon" alt="" class="img-fluid " width="25px" />-->
+<!--            </div>-->
+<!--            <div class=" fw-bold">{{category.name}}</div>-->
+<!--           </li>-->
+<!--        </div>-->
+<!--       </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--   <div class="container my-3">-->
+<!--       <h2>Catégories</h2>-->
+<!--       <div class="row g-3" >-->
+<!--           <mat-card *ngFor="let category of productCategories | async"-->
+<!--                     (click)="getProductsByCategory(category.ref)" class="col-3 m1 rounded-0" appearance="outlined">-->
+<!--               <img src="https://material.angular.dev/assets/img/examples/shiba2.jpg" class="img-fluid " alt="">-->
+<!--               <p class="fs-4 text-center bloder">{{category.name}}</p>-->
+<!--           </mat-card>-->
+<!--       </div>-->
+<!--   </div>-->
+
+    <div class="container px-5">
+        <h2 class=" display-5 text-cheese-yellow  my-5" data-aos="fade-up">Nos marque !</h2>
+        <div class="row gx-5 gy-3"> <!-- g-3 adds vertical + horizontal spacing -->
+            <div class="col-lg-3 col-md-6 col-12" *ngFor="let category of productCategories | async">
+                <mat-card (click)="getProductsByCategory(category.ref)" appearance="outlined" class="border-0 shadow-sm">
+                    <img src="/nars.png " class="img-fluid" alt="">
+                    <p class="fs-4 text-center">{{category.name}}</p>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid px-lg-3 mt-2">
+<!--    <div class="d-flex flex-nowrap overflow-auto pb-2 row-cols-5">-->
+<!--        <div *ngFor="let item of selectedProducts | async" class="me-2 col" style="min-width: 200px;">-->
+<!--            <mat-card class="h-100  card product-card bg-white mat-elevation-z5 mat-ripple-unbounded">-->
+<!--                <a [routerLink]="'product/show/'+item.ref" class="p-1">-->
+<!--                    <img class="card-img-top"-->
+<!--                         src="/tacos.webp" alt="{{item.name}}">-->
+<!--                </a>-->
+<!--                <div class="card-body">-->
+<!--&lt;!&ndash;                    <span class="badge bg-crust-brown mb-2">{{ item.seller?.sellerName }}</span>&ndash;&gt;-->
+<!--                    <h6 class="fw-bold text-dark text-truncate">{{ item.name }}</h6>-->
+<!--                    <div class="d-flex justify-content-between align-items-center">-->
+<!--                        <span class="text-muted">{{ item.price }} MAD</span>-->
+<!--                        <button mat-icon-button (click)="addToBasket(item)">-->
+<!--                            <mat-icon class="text-cheese-yellow">shopping_cart</mat-icon>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </mat-card>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+
+
+
+
+
+
+<div class="container-fluid mt-3"  id="top-selles">
+  <div class="row ">
+    <hr>
+    <h2 class=" display-5 text-cheese-yellow  my-5" data-aos="fade-up">
+        <mat-icon class="fs-1 overflow-visible me-3">local_fire_department</mat-icon>Meilleures ventes</h2>
+  </div>
+
+    <div class="container-fluid px-lg-2 mt-2">
+        <div class="d-flex flex-nowrap overflow-auto pb-2 row-cols-5 ">
+            <div *ngFor="let item of selectedProducts | async" class="me-2 col" style="min-width: 200px;">
+                <mat-card class="h-100  card product-card  mat-elevation-z5 mat-ripple-unbounded">
+                    <a [routerLink]="'product/show/'+item.ref" class="p-3">
+                        <img class="card-img-top"
+                             src="/product.jpeg" alt="{{item.name}}">
+                    </a>
+                    <div class="card-body">
+                        <!--                    <span class="badge bg-crust-brown mb-2">{{ item.seller?.sellerName }}</span>-->
+                        <h6 class="fw-bold text-dark text-truncate">{{ item.name }}</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">{{ item.price }} MAD</span>
+                            <button mat-icon-button (click)="addToBasket(item)">
+                                <mat-icon class="text-cheese-yellow">shopping_cart</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+<!--  <div class="row">-->
+<!--      -->
+<!--      -->
+<!--     <div class="col-lg-12  " >-->
+<!--      <div class="row p-3" style="overflow-x: auto; white-space: nowrap;overflow-y: visible;">-->
+<!--        <div class="card-container" data-aos="slide-right">-->
+<!--          <div *ngFor="let product of allProducts | async" class="col-lg-2 p-2">-->
+<!--            <div  class="p-3 glass card shadow-sm border border-secondary border-2" >-->
+<!--              <span class="badge  bg-dark col-6">{{product.seller.sellerName}}</span>-->
+<!--              <a [routerLink]="'/product/show/'+product.ref">-->
+<!--                <img class="card-img-top" src="/tacos.webp" alt="Photo of a Shiba Inu">-->
+<!--              </a>-->
+<!--              <h6 class="card-title mt-2">{{product.name}}</h6>-->
+<!--              <mat-card-actions class="d-flex justify-content-around">-->
+
+
+<!--                <button mat-button disabled="true">{{product.price}} MAD</button>-->
+<!--                <button extended mat-raised-button aria-label="Add to cart" class="rounded-3 text-center" style="color:#595959;transform:scale(1)"-->
+<!--                 (click)="addToBasket(product)">-->
+<!--                  <mat-icon class="m-auto">shopping_cart</mat-icon>-->
+<!--                </button>-->
+<!--              </mat-card-actions>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; <div class="col-lg-3">-->
+<!--      <ul class="list-group" *ngFor="let category of productCategories | async">-->
+<!--        <li class="list-group-item rounded-4 m-1 d-flex justify-content-start" (click)="getProductsByCategory(category.ref)">-->
+<!--         <img matChipAvatar [src]="category.icon" alt="" class="img-fluid mx-3" width="25px" />-->
+<!--          <div class="ml-3">{{category.name}}</div>-->
+<!--        </li>-->
+<!--      </ul>-->
+<!--    </div> &ndash;&gt;-->
+
+
+<!--  </div>-->
+</div>
+
+</div>

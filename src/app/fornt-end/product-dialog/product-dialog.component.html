@@ -1,0 +1,23 @@
+<!-- <div class="custom-dialog-container">
+  <h1 mat-dialog-title>{{ data.name }}</h1>
+  <div mat-dialog-content>
+    <p class="text-center">
+      <img height="200px" [src]="'https://modpizza.com/wp-content/uploads/2021/12/Website-Pizzas-MadDog-TEST.png'" alt="{{ data.name }}">
+    </p>
+    <p>Seller: {{ data.seller.sellerName }}</p>
+    <p>Price: {{ data.price }} MAD</p>
+  </div>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button>Ok</button>
+  </mat-dialog-actions>
+</div> -->
+
+<h2 mat-dialog-title>Delete file</h2>
+<mat-dialog-content>
+  Would you like to delete cat.jpeg?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>No</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

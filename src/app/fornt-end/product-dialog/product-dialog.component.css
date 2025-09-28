@@ -1,0 +1,6 @@
+/* dialog-component.css */
+.mdc-dialog__surface  {
+  border-radius: 30px; /* Adjust the border-radius value as needed */
+  overflow: hidden !important;
+  background: rgba(255, 165, 0, 0.4);
+}

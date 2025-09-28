@@ -1,0 +1,117 @@
+<section class="w-100 py-5 gradient-bg">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Filters Sidebar -->
+            <div class="col-lg-4">
+                <mat-card class="h-100 p-4 shadow-sm product-card">
+                    <form class="row gy-3">
+                        <h3 class="rose-color col-12 mb-3">Filtres</h3>
+                        <a routerLink="/" fragment="categories">  <button mat-raised-button color="primary" >
+                            Découvrez nos marques 👇
+                        </button></a>
+                        <!-- Price Slider -->
+                        <div class="col-12">
+                            <p class="fs-6 fw-semibold mb-2">Prix :</p>
+                            <mat-slider
+                                    class="w-100"
+                                    [disabled]="false"
+                                    [max]="1000"
+                                    [min]="0"
+                                    [step]="1"
+                                    [discrete]="true"
+                                    [showTickMarks]="true"
+                            >
+                                <input value="300" matSliderStartThumb aria-label="Prix minimum" />
+                                <input value="400" matSliderEndThumb aria-label="Prix maximum" />
+                            </mat-slider>
+                        </div>
+
+                        <!-- Dropdown -->
+                        <div class="col-12">
+                            <p class="fs-6 fw-semibold mb-2">Marque</p>
+                            <mat-form-field appearance="outline" class="w-100">
+<!--                                <mat-label></mat-label>-->
+                                <mat-select multiple>
+                                    <mat-option value="option1">Option 1</mat-option>
+                                    <mat-option value="option2">Option 2</mat-option>
+                                    <mat-option value="option3">Option 3</mat-option>
+                                </mat-select>
+                                <mat-hint align="end">Sélectionnez une catégorie</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-12">
+                            <p class="fs-6 fw-semibold mb-2">Catégorie :</p>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <!--                                <mat-label></mat-label>-->
+                                <mat-select multiple>
+                                    <mat-option value="option1">Option 1</mat-option>
+                                    <mat-option value="option2">Option 2</mat-option>
+                                    <mat-option value="option3">Option 3</mat-option>
+                                </mat-select>
+                                <mat-hint align="end">Sélectionnez une catégorie</mat-hint>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-12">
+                            <p class="fs-6 fw-semibold mb-2">Trier par :</p>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <!--                                <mat-label></mat-label>-->
+                                <mat-select multiple>
+                                    <mat-option value="option1">Option 1</mat-option>
+                                    <mat-option value="option2">Option 2</mat-option>
+                                    <mat-option value="option3">Option 3</mat-option>
+                                </mat-select>
+                                <mat-hint align="end">Sélectionnez une catégorie</mat-hint>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </mat-card>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="col-lg-8">
+                <div class="row g-3">
+                    <div
+                            *ngFor="let item of selectedProducts | async"
+                            class="col-sm-6 col-md-4 col-lg-4"
+                    >
+                        <mat-card class="h-100 p-2 shadow-sm product-card hover-scale">
+                            <a
+                                    [routerLink]="'/product/show/' + item.ref"
+                                    class="d-block text-decoration-none"
+                            >
+                                <img
+                                        class="card-img-top rounded"
+                                        src="/product.jpeg"
+                                        [alt]="item.name"
+                                />
+                            </a>
+                            <div class="p-3">
+                                <h6 class="fw-bold text-dark text-truncate mb-2">
+                                    {{ item.name }}
+                                </h6>
+                                <div
+                                        class="d-flex justify-content-between align-items-center mt-auto"
+                                >
+                  <span class="text-muted fw-semibold"
+                  >{{ item.price }} MAD</span
+                  >
+                                    <button
+                                            mat-icon-button
+                                            color="primary"
+                                            aria-label="Ajouter au panier"
+                                            (click)="addToBasket(item)"
+                                    >
+                                        <mat-icon>shopping_cart</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-footer></app-footer>
+</section>

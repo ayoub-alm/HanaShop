@@ -1,0 +1,71 @@
+<section class=" w-100" style="background: linear-gradient(180deg, rgb(246,224,224), rgb(255,232,200) 100%);">
+<div class="container py-4  rounded">
+    <div class="row" *ngIf="product$ | async as product">
+        <!-- Product image -->
+        <div class="col-lg-6 d-flex justify-content-center align-items-center mb-4">
+            <img src="/tacos.webp"
+                 [alt]="product.name" class="img-fluid  rounded" style="max-height: 400px;">
+        </div>
+
+        <!-- Product info -->
+        <div class="col-lg-6">
+            <h2 class="fw-bold text-dark mb-2">{{ product.name }}</h2>
+            <p class="text-muted">{{ product.description }}</p>
+            <p class="fs-4"><strong>{{ product.price }}</strong> MAD</p>
+
+            <form [formGroup]="orderFormGroup" class="my-3">
+                <div class="input-group w-50">
+                    <button mat-button class="btn btn-outline-secondary bg-secondary-subtle text-dark" type="button" (click)="decreaseQuantity()">-</button>
+                    <input type="number" class="form-control text-dark text-center" formControlName="quantity">
+                    <button mat-button class="btn btn-outline-secondary bg-success-subtle text-dark" type="button" (click)="increaseQuantity()">+</button>
+                </div>
+            </form>
+
+            <mat-accordion class="my-4 bg-white rounded-3">
+                <mat-expansion-panel [expanded]="true" class="bg-white">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title class="text-dark">Ingrédients</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="d-flex flex-wrap gap-2">
+                        <mat-checkbox disabled checked *ngFor="let ingredient of product.ingredients">
+                            {{ ingredient.name }}
+                        </mat-checkbox>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <div class="mt-3">
+                <button mat-raised-button class="me-2 text-circle-green" (click)="addToBasket(product)">Ajouter au panier</button>
+                <button mat-button routerLink="/" class="text-pizza-red" color="primary">
+                    <mat-icon>home</mat-icon>Retour à l'accueil</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    <div class="mt-5">
+        <h4 class="mb-3">Produits similaires</h4>
+        <div class="d-flex flex-nowrap overflow-auto pb-2 row-cols-6">
+            <div *ngFor="let item of products | async" class="me-3 col" style="min-width: 240px;">
+                <mat-card class="h-100 shadow-sm card product-card bg-white mat-elevation-z5">
+                    <a [routerLink]="'/product/show/'+item.ref">
+                        <img class="card-img-top"
+                             src="/tacos.webp" alt="{{item.name}}">
+                    </a>
+                    <div class="card-body">
+                        <span class="badge bg-crust-brown mb-2">{{ item.seller?.sellerName }}</span>
+                        <h6 class="fw-bold text-dark text-truncate">{{ item.name }}</h6>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">{{ item.price }} MAD</span>
+                            <button mat-icon-button (click)="addToBasket(item)">
+                                <mat-icon>shopping_cart</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
+</section>

@@ -1,0 +1,99 @@
+<div class="gradient-bg">
+    <section class="container p-3">
+        <div class="row">
+           <div class="col-lg-5">
+               <div class="p-1 rounded-0 border-1 border-dark">
+                   <!-- Products List -->
+                   <div class="overflow-auto p-2" >
+                       <div *ngIf="products.getValue().length === 0" class="text-center p-4">
+                           <img class="img-fluid mb-3" src="/empty_basket.jpeg" alt="Empty Basket">
+                           <h1 class="text-secondary fs-3">Panier est vide</h1>
+                           <hr>
+                           <hr>
+                           <hr>
+                       </div>
+                       <div *ngFor="let product of products | async; trackBy: trackByProduct" class="card mb-2">
+                           <div mat-card class="row g-0">
+                               <!-- Product image -->
+                               <div class="col-3 p-2">
+                                   <img src="/product.jpeg"  class="img-fluid rounded-start" alt="Produit">
+                               </div>
+
+                               <!-- Product info -->
+                               <div class="col-7">
+                                   <div class="card-body">
+                                       <p class="card-title fs-4  fw-bold mb-2">{{ product.product.name }}</p>
+                                       <small class="d-block ">Quantité: <strong class="text-dark mx-1">{{ product.quantity }}</strong></small>
+                                       <small class="d-block ">Prix: {{ product.product.price }} MAD</small>
+                                   </div>
+                               </div>
+
+                               <!-- Controls -->
+                               <div class="col-2 d-flex flex-column justify-content-between p-2">
+                                   <button mat-icon-button (click)="removeFromBasket(product)" class="btn bg-light text-dark-emphasis text-end scale-08 mb-1"><mat-icon>delete</mat-icon></button>
+                                   <button mat-icon-button (click)="increaseQuantity(product)" class="btn bg-light text-success scale-08 rounded-4 mb-1"> <mat-icon>add</mat-icon></button>
+                                   <button mat-icon-button (click)="decreaseQuantity(product)" class="btn bg-light text-danger scale-08 rounded-4"><mat-icon>remove</mat-icon></button>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+
+               </div>
+           </div>
+            <div class="col-lg-7 p-2">
+                <h3> <strong>Total</strong> : {{ parseInt(totalAmount).toFixed(2) }} MAD</h3>
+                <mat-accordion class="example-headers-align p-2">
+                    <mat-expansion-panel [expanded]="step() === 0" (opened)="setStep(0)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Produits </mat-panel-title>
+                            <mat-panel-description>
+                                Valider les produits
+                                <button mat-button (click)="nextStep()">Procéder au paiement  </button>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+                        <mat-action-row>
+                            <button mat-button (click)="nextStep()">suivante</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step() === 1" (opened)="setStep(1)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Destination </mat-panel-title>
+                            <mat-panel-description>
+                                Information de livraison & facturation
+                                <mat-icon>map</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+
+                        <mat-action-row>
+                            <button mat-button (click)="prevStep()">Previous</button>
+                            <button mat-button (click)="nextStep()">suivante</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel [expanded]="step() === 2" (opened)="setStep(2)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> Paiement </mat-panel-title>
+                            <mat-panel-description>
+                                Inform the date you wish to travel
+                                <mat-icon>date_range</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+
+
+                        <mat-action-row>
+                            <button mat-button (click)="prevStep()">Previous</button>
+                            <button mat-button (click)="nextStep()">End</button>
+                        </mat-action-row>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+
+    </section>
+    <app-footer></app-footer>
+</div>

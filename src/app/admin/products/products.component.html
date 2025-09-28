@@ -1,0 +1,88 @@
+<div class="container-fluid">
+    <h6 class="h3  my-auto text-text-dark mt-2 d-flex justify-content-start">
+      <div class="my-auto mt-1 mx-2"> 
+          <mat-icon class="text-dark" >inventory_2</mat-icon>
+        </div>
+      <div>Produits</div>
+    </h6>
+    <div class="d-flex justify-content-end my-3">
+      <div class="col-6">
+       <!-- <mat-form-field [appearance]="'fill'" > -->
+          <!-- <mat-label>Recherche</mat-label> -->
+          <input class="form-control" matInput (keyup)="applyFilter($event)" placeholder="Recherche" autofocus #input>
+        <!-- </mat-form-field> -->
+     </div>
+     <div class="my-auto mx-3 rounded-0">
+
+      <button (click)="openAddProductsDialog()"
+      mat-raised-button class="text-center text-white bg-dark-smart scale-09 rounded-1" >
+                Ajouter
+      </button>
+     </div>
+  
+</div>
+
+<div class="mat-elevation-z2 w-100 " >
+
+    <table mat-table [dataSource]="dataSource" matSort class="w-100 overflow-scroll">
+
+             <!-- ID Column -->
+             <ng-container matColumnDef="id" >
+                <th mat-header-cell *matHeaderCellDef mat-sort-header [width]="5"  >  </th>
+                <td mat-cell *matCellDef="let row" [width]="5"> 
+                  <mat-checkbox class="p-0 m-0" style="transform: scale(0.7);"></mat-checkbox>
+                </td>
+              </ng-container>
+  
+        <!-- SKU Column -->
+        <ng-container matColumnDef="sku">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> SKU </th>
+            <td mat-cell *matCellDef="let element"> {{element.sku}} </td>
+        </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Statut </th>
+        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="categorie">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Catégorie </th>
+        <td mat-cell *matCellDef="let element"> {{element.categoryId}} </td>
+      </ng-container>
+  
+        <!-- Price Column -->
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Prix </th>
+            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        </ng-container>
+      
+   
+  
+      <!-- Fruit Column -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="bg-dark-smart text-white"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+  </div>
+  <!-- {
+    "name": "Pizza Thon ",
+    "description": "Pizza Thon",
+    "categoryId": 3,
+    "sku": "123654",
+    "ref": "12365400-0000-0000-0000-000000000000",
+    "price": 20.0,
+    "state": true,
+    "seller": {
+        "id": 3,
+        "sellerName": "Mamito Food"
+    },
+    "ingredients": []
+}, -->

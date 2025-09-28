@@ -1,0 +1,66 @@
+.glass-orang{
+  backdrop-filter: blur(5px);
+  box-shadow: 15px 15px 28px 0px rgba(245, 166, 35, 0.3)
+}
+.header-logo{
+  animation-name: example ;
+  animation-duration: 5s;
+  animation-delay: 1s;
+  /* scale: 2; */
+}
+
+.header{
+  /*background: #ede6d9;*/
+}
+
+@keyframes example {
+  0% {
+    position: relative;
+    top: 30px;
+    opacity: 0;
+  }
+  50% { position: relative;
+    top:-20px;
+  }
+  100% {
+    position: relative;
+    top: 0px;
+  }
+}
+
+
+
+/* @keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+} */
+.wrapper {
+  height: 10vh;
+  /* z-index: 10000; */
+  color: white !important;
+  /*This part is important for centering*/
+  display: grid;
+  place-items: center;
+}
+
+.typing-demo {
+  width: 100%;
+  animation: typing 5s steps(22), blink .5s step-end infinite ;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  transition: ease-in;
+  /* font-size: 2em; */
+}
+
+@keyframes typing {
+  0% {
+    width: 0
+  }
+}
+    
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}

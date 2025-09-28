@@ -1,0 +1,24 @@
+.valeur-card {
+    background-color: rgba(250, 250, 250, 0.76);
+    border-radius: 10px;
+  }
+  
+  .valeur-icon {
+    color: #387e4b;
+    vertical-align: middle;
+    margin-right: 10px;
+    transform: scale(1.2);
+  }
+  
+  .border-start {
+    border-left: 10px solid white;
+  }
+  
+  .glass-orang-color {
+    color: #fcd965;
+  }
+  
+  img {
+    object-fit: cover;
+  }
+  

@@ -1,0 +1,64 @@
+<section class="container-fluid my-5">
+    <!-- 🆕 New Orders -->
+    <div class="mb-4">
+        <h6 class="fs-4 text-warning mb-3">🆕 New Orders</h6>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <mat-card class="bg-white p-3 shadow-sm">
+                    <mat-card-content>
+                        <p><strong>Numéro:</strong> 111</p>
+                        <p><strong>Type:</strong> Livraison</p>
+                    </mat-card-content>
+                    <mat-card-actions class="d-flex justify-content-between">
+                        <button mat-button color="primary" (click)="onAccept()">
+                            <mat-icon class="me-1">check_circle</mat-icon> Accepter
+                        </button>
+                        <button mat-button color="warn" (click)="onRefuse()">
+                            <mat-icon class="me-1">cancel</mat-icon> Refuser
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔄 In Progress -->
+    <div class="mb-4">
+        <h6 class="fs-4 text-primary mb-3">🔄 En cours</h6>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <mat-card class="bg-white p-3 shadow-sm">
+                    <mat-card-content>
+                        <p><strong>Numéro:</strong> 111</p>
+                        <p><strong>Type:</strong> Livraison</p>
+                        <p><strong>Produits:</strong> ...</p>
+                    </mat-card-content>
+                    <mat-card-actions class="d-flex justify-content-between">
+                        <button mat-button color="primary" (click)="onMarkDelivered()">
+                            <mat-icon class="me-1">local_shipping</mat-icon> Livré
+                        </button>
+                        <button mat-button color="warn" (click)="onCancel()">
+                            <mat-icon class="me-1">cancel</mat-icon> Annuler
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Done Orders -->
+    <div>
+        <h6 class="fs-4 text-success mb-3">✅ Commandes Livrées</h6>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <mat-card class="bg-white p-3 shadow-sm">
+                    <mat-card-content>
+                        <p><strong>Numéro:</strong> 111</p>
+                        <p><strong>Type:</strong> Livraison</p>
+                        <p><strong>Produits:</strong> ...</p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</section>

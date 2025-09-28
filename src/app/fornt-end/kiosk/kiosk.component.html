@@ -1,0 +1,49 @@
+<section class="container-fluid bg-dark-smart" >
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="card-container col-lg-2  d-flex align-items-center  flex-lg-column vh-100 b"
+                 >
+                <h6 class="sticky-top w-100 rounded-2 bg-dark fs-4  text-center my-2 p-3        ">
+                    Catégories
+                </h6>
+                <div *ngFor="let category of categories | async"
+                     class="col-8 p-2 m-3 bg-white shadow-sm rounded-3   d-flex justify-content-around ">
+                    <div (click)="getProductsByCategory(category.ref)"
+                         class=" rounded-4 text-center  d-flex justify-content-around flex-lg-column">
+                        <div class="mx-3">
+                            <div class=" fw-bold mt-2 text-dark">{{ category.name }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-10 p-lg-3 rounded-4 mat-elevation-z50"
+                 style="overflow:auto ;max-height: 100vh;background:#F8F9FA;scrollbar-width: thin;scrollbar-color: transparent transparent;">
+                <div class="row">
+                    <div *ngFor="let product of allProduct | async" class="col-lg-2 col-6  p-lg-2 ">
+                        <mat-card class="h-100  card product-card bg-white mat-elevation-z5 mat-ripple-unbounded">
+                            <a [routerLink]="'/product/show/'+product.ref" class="p-3">
+                                <img class="card-img-top"
+                                     src="https://modpizza.com/wp-content/uploads/2021/12/Website-Pizzas-MadDog-TEST.png" alt="{{product.name}}">
+                            </a>
+                            <div class="card-body">
+                                <!--                    <span class="badge bg-crust-brown mb-2">{{ item.seller?.sellerName }}</span>-->
+                                <h6 class="fw-bold text-dark text-truncate">{{ product.name }}</h6>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-muted">{{ product.price }} MAD</span>
+                                    <button mat-icon-button (click)="addToBasket(product)">
+                                        <mat-icon class="text-circle-green">shopping_cart</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+

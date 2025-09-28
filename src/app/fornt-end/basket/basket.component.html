@@ -1,0 +1,93 @@
+<div class="vh-100 overflow-x-hidden bg-white rounded-0 border-1 border-dark">
+    <!-- Toolbar -->
+    <div class="px-2 bg-dark-smart">
+        <mat-toolbar class="rounded-3 p-2 mat-elevation-z4 bg-dark mb-2 mt-2" style="max-height: 10vh;">
+            <div class="container-fluid d-flex align-items-center justify-content-between w-100">
+                <!-- Left side: Logo / Title -->
+                <div class="d-flex align-items-center gap-4">
+                    <a class="d-flex align-items-center text-decoration-none" href="#" style="color: #d7a734;">
+                        <p class="text-white fw-bold mb-0">
+                            Panier
+                            <sub class="text-circle-green small fw-light">{{ products.getValue().length }} produits</sub>
+                        </p>
+                    </a>
+                </div>
+
+                <!-- Right side: Actions -->
+                <div class="d-flex align-items-center gap-3">
+                    <button (click)="restOrder()" mat-icon-button class="text-crust-brown" aria-label="Reset Order">
+                        <mat-icon>restart_alt</mat-icon>
+                    </button>
+                    <button (click)="onCloseBasket()" mat-icon-button class="position-relative rounded-1" aria-label="Close Basket">
+                        <mat-icon class="text-pizza-red fw-bold">close</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </mat-toolbar>
+    </div>
+
+    <!-- Products List -->
+    <div class="overflow-auto p-2" style="max-height: 78vh;">
+        <div *ngIf="products.getValue().length === 0" class="text-center p-4">
+            <br>
+            <br>
+            <br>
+            <img class="img-fluid mb-3" src="/empty_basket.jpeg" alt="Empty Basket">
+            <h1 class="text-secondary fs-3">Panier est vide</h1>
+            <br>
+            <br>
+            <br>
+            <hr>
+            <hr>
+            <hr>
+        </div>
+
+        <div *ngFor="let product of products | async; trackBy: trackByProduct" class="card mb-2">
+            <div class="row g-0">
+                <!-- Product image -->
+                <div class="col-4 p-2">
+                    <img src="/product.jpeg" class="img-fluid rounded-start" alt="Produit">
+                </div>
+
+                <!-- Product info -->
+                <div class="col-6">
+                    <div class="card-body">
+                        <p class="card-title fw-bold mb-2">{{ product.product.name }}</p>
+                        <small class="d-block">Quantité: <strong class="text-dark mx-1">{{ product.quantity }}</strong></small>
+                        <small class="d-block">Prix: {{ product.product.price }} MAD</small>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="col-2 d-flex flex-column justify-content-between p-2">
+                    <button (click)="removeFromBasket(product)" class="btn bg-light text-dark rounded-4 mb-1">x</button>
+                    <button (click)="increaseQuantity(product)" class="btn bg-light text-success rounded-4 mb-1">+</button>
+                    <button (click)="decreaseQuantity(product)" class="btn bg-light text-danger rounded-4">-</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer / Totals -->
+    <div class="  w-100 position-relative text-center d-flex justify-content-center">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Total</strong> : {{ parseInt(totalAmount).toFixed(2) }} MAD
+            </li>
+
+            <li class="list-group-item d-flex justify-content-around">
+                <!-- Normal Order -->
+                <button (click)="onCloseBasket()" routerLink="/validate-order" mat-raised-button class="bg-dark-smart mx-2 " color="warm">Valider ma commande</button>
+
+                <!-- WhatsApp Order -->
+<!--                <button mat-button class="bg-success text-white d-flex align-items-center gap-2" (click)="generateWhatsAppMessage()">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+<!--                         class="bi bi-whatsapp" viewBox="0 0 16 16">-->
+<!--                        <path d="..." /> &lt;!&ndash; Keep your path data here &ndash;&gt;-->
+<!--                    </svg>-->
+<!--                    Commander-->
+<!--                </button>-->
+            </li>
+        </ul>
+    </div>
+</div>

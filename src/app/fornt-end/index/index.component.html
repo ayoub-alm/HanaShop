@@ -1,0 +1,58 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer #drawer mode="over" position="end"  class="vh-100 w-sm-100 w-md-50 w-lg-50  position-fixed rounded-0 bg-secondary-subtle menu-drawer">
+        <app-basket  (closeDrawer)="drawer.close()"></app-basket>
+    </mat-drawer>
+
+    <mat-drawer-content class="bg-white">
+<!--        <mat-toolbar class="mat-elevation-z3 rounded-0  bg-dark shadow-sm border-bottom border-secondary-subtle" >-->
+<!--            <div class="container-fluid d-flex align-items-center justify-content-between w-100">-->
+<!--                &lt;!&ndash; Left side: Logo + Nav links &ndash;&gt;-->
+<!--                <div class="d-flex align-items-center gap-4">-->
+<!--                    <div class="d-flex">-->
+<!--&lt;!&ndash;                        <button mat-icon-button class="mx-0 rounded-1"><mat-icon>menu</mat-icon></button>&ndash;&gt;-->
+<!--                        <a class="navbar-brand d-flex align-items-center" (click)="router.navigateByUrl('/')" style="color: #d7a734;">-->
+<!--                            <span class="fw-bold text-crust-brown" ><img src="/mamito_logo-png.png" class="img-fluid" width="70px"></span>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                        <a routerLink="/" class="d-none d-md-block nav-link small text-secondary fs-6">Categories</a>-->
+<!--                    &lt;!&ndash; Visible on lg and up only &ndash;&gt;-->
+<!--                    <a routerLink="/" class="d-none d-lg-block nav-link small text-secondary fs-6">Top sell's</a>-->
+<!--                    <a routerLink="/kiosk" class="d-none d-lg-block nav-link small text-secondary fs-6">Menu</a>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Right side: Basket + Login &ndash;&gt;-->
+<!--                <div class="d-flex align-items-center gap-3">-->
+<!--                    <button mat-icon-button aria-label="Basket" class="position-relative rounded-1" (click)="drawer.toggle()">-->
+<!--                        <mat-icon class="text-white">shopping_cart</mat-icon>-->
+<!--                        <span class="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-pizza-red" style=";transform: scale(0.9); font-size: 0.9rem;">-->
+<!--                          {{ productsInBasketCount.getValue() }}-->
+<!--                        </span>-->
+<!--                    </button>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </mat-toolbar>-->
+        <mat-toolbar>
+            <button mat-icon-button class="example-icon primary-color" aria-label="Example icon-button with menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+<!--           <div class="d-flex justify-content-between ">-->
+               <span class="mat-accent" routerLink="/" fragment="#">Hana Shop</span>
+                <span class="mx-4"></span>
+               <span class="mat-accent me-2 small rose-color"  routerLink="/products">Produits</span>
+<!--           </div>-->
+            <span class="spacer"></span>
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Basket" class="position-relative rounded-1" (click)="drawer.toggle()">
+                <mat-icon>shopping_cart</mat-icon>
+                <span class="position-absolute top-10 start-100 translate-middle text-danger badge rounded-pill bg-pizza-red" style=";transform: scale(0.9); font-size: 0.9rem;">
+                      {{ productsInBasketCount.getValue() }}
+                    </span>
+            </button>
+
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

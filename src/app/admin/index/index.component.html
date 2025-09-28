@@ -1,0 +1,90 @@
+<mat-drawer-container class="example-container">
+  <!-- Side Navigation Menu -->
+  <mat-drawer #drawer class="example-sidenav custom-drawer-width bg-dark-smart" mode="side" opened>
+    <div class="container-fluid side-nav">
+      <!-- Logo -->
+        <button mat-icon-button (click)="drawer.toggle()" class="example-icon text-white" aria-label="Toggle sidenav">
+            <mat-icon>menu</mat-icon>
+        </button>
+      <p class="text-center mt-3 text-dark">
+        Smart Menu Maroc
+      </p>
+      <mat-divider class="mt-4 "></mat-divider>
+
+      <!-- Navigation List -->
+      <mat-list class="mt-2 text-start">
+        <!-- Dashboard -->
+        <a [routerLink]="'/admin'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">dashboard</mat-icon>
+            Tableau de bord
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Commandes -->
+        <a [routerLink]="'/admin/orders'" mat-list-item class="d-flex align-items-start">
+          <button mat-button class="text-start text-secondary">
+            <mat-icon class="me-2">shopping_cart</mat-icon>
+            Commandes
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Livraisons -->
+        <a [routerLink]="'/admin/livraisons'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start text-secondary">
+            <mat-icon class="me-2">local_shipping</mat-icon>
+            Livraisons
+          </button>
+        </a>
+          <mat-divider></mat-divider>
+        <!-- Produits -->
+        <a [routerLink]="'/admin/products'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">inventory_2</mat-icon>
+            Produits
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Caisse -->
+        <a [routerLink]="'/admin/caisse'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">account_balance_wallet</mat-icon>
+            Caisse
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
+  </mat-drawer>
+
+  <!-- Main Content Area -->
+  <div class="example-sidenav-content">
+    <!-- Top Toolbar -->
+    <mat-toolbar class="sticky-top bg-dark-smart">
+      <button mat-icon-button (click)="drawer.toggle()" class="example-icon text-white" aria-label="Toggle sidenav">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Mamito Food</span>
+      <span class="example-spacer"></span>
+
+      <!-- Action Icons -->
+      <button mat-icon-button class="example-icon text-white" aria-label="Account">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon text-white" aria-label="Settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-icon-button class="example-icon text-white" aria-label="Logout">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- Dynamic Content -->
+    <div class="p-3">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-drawer-container>

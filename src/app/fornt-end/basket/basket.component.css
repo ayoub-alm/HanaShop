@@ -1,0 +1,16 @@
+::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color:rgba(53, 53, 53, 0.4);
+  border-radius: 5px;
+}
+.overflow-auto {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.overflow-auto::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
