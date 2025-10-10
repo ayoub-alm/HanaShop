@@ -13,6 +13,8 @@ import {
     MatExpansionPanelTitle
 } from "@angular/material/expansion";
 import {FooterComponent} from "../footer/footer.component";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {OrdersApiService, PaymentMethod} from '../../services/orders.api.service';
 
 @Component({
   selector: 'app-validate-order',
@@ -31,7 +33,8 @@ import {FooterComponent} from "../footer/footer.component";
         MatExpansionPanelDescription,
         MatExpansionPanelHeader,
         MatExpansionPanelActionRow,
-        FooterComponent
+        FooterComponent,
+        ReactiveFormsModule
     ],
   templateUrl: './validate-order.component.html',
   styleUrl: './validate-order.component.css'
@@ -43,15 +46,26 @@ export class ValidateOrderComponent implements OnInit, OnDestroy {
     private orderSubscription!: Subscription;
     @Output() closeDrawer = new EventEmitter<any>();
     step = signal(0);
+    checkoutForm!: FormGroup;
+    isSubmitting = false;
+    submitError: string | null = null;
+    submitSuccess: string | null = null;
+    selectedPaymentMethod: PaymentMethod = 'COD';
 
-
-    constructor(private orderService: OrderService) {}
+    constructor(private orderService: OrderService, private fb: FormBuilder, private ordersApi: OrdersApiService) {}
 
     ngOnInit(): void {
         this.orderService.order$.subscribe((data)=>{
             this.products.next(data.products)
             this.totalAmount = this.calculateTotalAmount(data.products).toString()
         })
+        this.checkoutForm = this.fb.group({
+            fullName: ['', [Validators.required, Validators.minLength(3)]],
+            phone: ['', [Validators.required, Validators.pattern(/^\+?[0-9\s-]{8,15}$/)]],
+            address: ['', [Validators.required, Validators.minLength(5)]],
+            city: ['', [Validators.required, Validators.minLength(2)]],
+            notes: ['']
+        });
     }
 
     // Calculate the total amount for the order
@@ -80,14 +94,23 @@ export class ValidateOrderComponent implements OnInit, OnDestroy {
 
 
     increaseQuantity(product: ProductInOrderDto) {
-        product.quantity++;
-        // this.reCalculateTotalAmount();
+        const currentOrder = this.orderService.orderSubject.getValue();
+        const target = currentOrder.products.find(p => p.product.ref === product.product.ref);
+        if (target) {
+            target.quantity = target.quantity + 1;
+            currentOrder.totalAmount = this.calculateTotalAmount(currentOrder.products);
+            this.orderService.updateOrder(currentOrder);
+        }
     }
 
     decreaseQuantity(product: ProductInOrderDto) {
-        if (product.quantity > 1) {
-            product.quantity--;
-            // this.reCalculateTotalAmount();
+        const currentOrder = this.orderService.orderSubject.getValue();
+        const target = currentOrder.products.find(p => p.product.ref === product.product.ref);
+        if (!target) return;
+        if (target.quantity > 1) {
+            target.quantity = target.quantity - 1;
+            currentOrder.totalAmount = this.calculateTotalAmount(currentOrder.products);
+            this.orderService.updateOrder(currentOrder);
         }
     }
 
@@ -145,4 +168,49 @@ export class ValidateOrderComponent implements OnInit, OnDestroy {
     }
 
     protected readonly parseInt = parseInt;
+
+    submitOrder() {
+        if (this.products.getValue().length === 0) {
+            this.submitError = 'Votre panier est vide.';
+            return;
+        }
+        if (this.checkoutForm.invalid) {
+            this.checkoutForm.markAllAsTouched();
+            return;
+        }
+        this.isSubmitting = true;
+        this.submitError = null;
+        this.submitSuccess = null;
+
+        const formValue = this.checkoutForm.value;
+        const items = this.products.getValue().map(p => ({ productRef: p.product.ref, quantity: p.quantity }));
+        const total = Number(this.totalAmount);
+
+        this.ordersApi.createOrder({
+            fullName: formValue.fullName,
+            phone: formValue.phone,
+            address: formValue.address,
+            city: formValue.city,
+            notes: formValue.notes,
+            paymentMethod: this.selectedPaymentMethod,
+            items,
+            totalAmount: total
+        }).subscribe({
+            next: (res) => {
+                this.isSubmitting = false;
+                this.submitSuccess = 'Commande envoyée avec succès!';
+                if (this.selectedPaymentMethod === 'WHATSAPP') {
+                    // Open WhatsApp prefilled message for confirmation
+                    this.generateWhatsAppMessage();
+                }
+                this.orderService.resetOrder();
+                this.checkoutForm.reset();
+                this.setStep(0);
+            },
+            error: (err) => {
+                this.isSubmitting = false;
+                this.submitError = err?.error?.message || 'Une erreur est survenue lors de l\'envoi.';
+            }
+        });
+    }
 }

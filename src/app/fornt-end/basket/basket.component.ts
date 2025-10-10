@@ -60,14 +60,24 @@ export class BasketComponent implements OnInit, OnDestroy {
 
 
   increaseQuantity(product: ProductInOrderDto) {
-    product.quantity++;
-    // this.reCalculateTotalAmount();
+    // Persist quantity change to the centralized order state
+    const currentOrder = this.orderService.orderSubject.getValue();
+    const target = currentOrder.products.find(p => p.product.ref === product.product.ref);
+    if (target) {
+      target.quantity = target.quantity + 1;
+      currentOrder.totalAmount = this.calculateTotalAmount(currentOrder.products);
+      this.orderService.updateOrder(currentOrder);
+    }
   }
   
   decreaseQuantity(product: ProductInOrderDto) {
-    if (product.quantity > 1) {
-      product.quantity--;
-      // this.reCalculateTotalAmount();
+    const currentOrder = this.orderService.orderSubject.getValue();
+    const target = currentOrder.products.find(p => p.product.ref === product.product.ref);
+    if (!target) return;
+    if (target.quantity > 1) {
+      target.quantity = target.quantity - 1;
+      currentOrder.totalAmount = this.calculateTotalAmount(currentOrder.products);
+      this.orderService.updateOrder(currentOrder);
     }
   }
   
