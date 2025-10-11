@@ -12,6 +12,7 @@ import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {OrderService} from "../../services/OrderService";
 import AOS from "aos";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -32,7 +33,8 @@ import AOS from "aos";
 })
 export class IndexComponent implements OnInit{
     productsInBasketCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    constructor(private orderService: OrderService, public router: Router) {
+    isAuthenticated$ = this.auth.isAuthenticated$;
+    constructor(private orderService: OrderService, public router: Router, private auth: AuthService) {
     }
     ngOnInit(): void {
         this.orderService.order$.subscribe((data)=>{

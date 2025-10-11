@@ -1,0 +1,25 @@
+<div class="container py-5" style="max-width: 480px;">
+  <h2 class="mb-4 text-center">Connexion</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="d-grid gap-3">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="you@example.com" formControlName="email" type="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput placeholder="••••••••" formControlName="password" type="password" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="loading" type="submit">
+      {{ loading ? 'Connexion...' : 'Se connecter' }}
+    </button>
+
+    <div class="text-danger small" *ngIf="error">{{ error }}</div>
+
+    <div class="text-center small">
+      Pas de compte ? <a routerLink="/signup">Créer un compte</a>
+    </div>
+  </form>
+</div>
