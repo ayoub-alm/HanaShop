@@ -1,6 +1,30 @@
 .example-spacer {
     flex: 1 1 auto;
-  }
+}
+
+/* Active link highlighting */
+a.active {
+    background-color: rgba(102, 126, 234, 0.1);
+    border-left: 4px solid #667eea;
+}
+
+a.active button {
+    color: #667eea !important;
+    font-weight: 600;
+}
+
+/* Sidebar styling */
+.side-nav {
+    padding: 1rem 0;
+}
+
+.side-nav mat-list a {
+    transition: all 0.3s ease;
+}
+
+.side-nav mat-list a:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
 
 
   .example-container {

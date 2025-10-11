@@ -70,44 +70,81 @@
 
             <!-- Products Grid -->
             <div class="col-lg-8">
-                <div class="row g-3">
+                <!-- Products Header -->
+                <div class="products-header mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="mb-1">All Products</h4>
+                            <p class="text-muted mb-0">Showing {{ (pageIndex * pageSize) + 1 }} - {{ Math.min((pageIndex + 1) * pageSize, totalProducts) }} of {{ totalProducts }} products</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="row g-4">
                     <div
                             *ngFor="let item of selectedProducts | async"
-                            class="col-sm-6 col-md-4 col-lg-4"
+                            class="col-sm-6 col-lg-4"
                     >
-                        <mat-card class="h-100 p-2 shadow-sm product-card hover-scale">
+                        <mat-card class="h-100 product-card hover-scale">
                             <a
                                     [routerLink]="'/product/show/' + item.ref"
-                                    class="d-block text-decoration-none"
+                                    class="d-block text-decoration-none product-image-wrapper"
                             >
                                 <img
                                         class="card-img-top rounded"
                                         src="/product.jpeg"
                                         [alt]="item.name"
                                 />
+                                <div class="product-overlay">
+                                    <button mat-fab color="primary" class="view-btn">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                </div>
                             </a>
                             <div class="p-3">
-                                <h6 class="fw-bold text-dark text-truncate mb-2">
+                                <h6 class="fw-bold text-dark mb-2 product-name">
                                     {{ item.name }}
                                 </h6>
-                                <div
-                                        class="d-flex justify-content-between align-items-center mt-auto"
-                                >
-                  <span class="text-muted fw-semibold"
-                  >{{ item.price }} MAD</span
-                  >
+                                <div class="product-rating mb-2">
+                                    <mat-icon class="star-icon">star</mat-icon>
+                                    <mat-icon class="star-icon">star</mat-icon>
+                                    <mat-icon class="star-icon">star</mat-icon>
+                                    <mat-icon class="star-icon">star</mat-icon>
+                                    <mat-icon class="star-icon-empty">star_border</mat-icon>
+                                    <span class="rating-text">(4.0)</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                    <div class="price-container">
+                                        <span class="product-price">{{ item.price }} MAD</span>
+                                    </div>
                                     <button
-                                            mat-icon-button
+                                            mat-mini-fab
                                             color="primary"
-                                            aria-label="Ajouter au panier"
+                                            aria-label="Add to cart"
                                             (click)="addToBasket(item)"
+                                            class="add-to-cart-btn"
                                     >
-                                        <mat-icon>shopping_cart</mat-icon>
+                                        <mat-icon>add_shopping_cart</mat-icon>
                                     </button>
                                 </div>
                             </div>
                         </mat-card>
                     </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container mt-5">
+                    <mat-paginator
+                            [length]="totalProducts"
+                            [pageSize]="pageSize"
+                            [pageIndex]="pageIndex"
+                            [pageSizeOptions]="pageSizeOptions"
+                            (page)="onPageChange($event)"
+                            aria-label="Select page"
+                            class="custom-paginator"
+                    >
+                    </mat-paginator>
                 </div>
             </div>
         </div>
