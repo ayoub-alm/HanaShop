@@ -77,7 +77,7 @@
 
             <li class="list-group-item d-flex justify-content-around">
                 <!-- Normal Order -->
-                <button (click)="onCloseBasket()" routerLink="/validate-order" mat-raised-button class="bg-dark-smart mx-2 " color="warm">Valider ma commande</button>
+                <button (click)="onCloseBasket()" routerLink="/validate-order" mat-raised-button class="bg-dark-smart mx-2 " color="warm" [disabled]="(products | async)?.length === 0">Valider ma commande</button>
 
                 <!-- WhatsApp Order -->
 <!--                <button mat-button class="bg-success text-white d-flex align-items-center gap-2" (click)="generateWhatsAppMessage()">-->

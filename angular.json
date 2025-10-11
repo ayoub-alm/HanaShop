@@ -35,17 +35,10 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json",
               "budgets": [
                 {
                   "type": "initial",
