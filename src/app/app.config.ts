@@ -21,9 +21,9 @@ export const appConfig: ApplicationConfig = {
           const token = auth.getToken();
           if (token) {
             const cloned = req.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
-            return next.handle(cloned);
+            return next(cloned);
           }
-          return next.handle(req);
+          return next(req);
         }
       ])
     ),
