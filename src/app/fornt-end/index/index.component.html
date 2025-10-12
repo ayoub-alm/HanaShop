@@ -39,70 +39,37 @@
                         </a>
                     </div>
 
-                    <!-- Actions Section -->
-                    <div class="nav-actions">
-                        <!-- Wishlist Button -->
-                        <button mat-icon-button class="action-button" aria-label="Wishlist" matTooltip="Wishlist">
-                            <mat-icon>favorite_border</mat-icon>
-                        </button>
+<!--            </div>-->
+<!--        </mat-toolbar>-->
+        <mat-toolbar class="mat-elevation-z2 bg-white">
+            <div class="container-fluid d-flex align-items-center justify-content-between w-100">
+                <!-- Left: brand + links -->
+                <div class="d-flex align-items-center gap-3">
+                    <button mat-icon-button class="rounded-1"><mat-icon>menu</mat-icon></button>
+                    <a class="navbar-brand d-flex align-items-center text-decoration-none" (click)="router.navigateByUrl('/')">
+                        <img src="/logo.png" alt="Logo" class="img-fluid me-2" width="36" height="36"/>
+                        <span class="fw-semibold text-dark">Hana Shop</span>
+                    </a>
+                    <a routerLink="/products" class="d-none d-md-block nav-link small text-secondary">Produits</a>
+                    <a routerLink="/categories" class="d-none d-lg-block nav-link small text-secondary">Catégories</a>
+                </div>
 
-                        <!-- Shopping Cart Button -->
-                        <button mat-icon-button class="action-button cart-button" aria-label="Shopping Cart" (click)="drawer.toggle()" matTooltip="Cart">
-                            <mat-icon>shopping_cart</mat-icon>
-                            <span class="cart-badge" *ngIf="productsInBasketCount.getValue() > 0">
-                                {{ productsInBasketCount.getValue() }}
-                            </span>
-                        </button>
-
-                        <!-- User Menu - Show when authenticated -->
-                        <div *ngIf="isAuthenticated" class="user-menu">
-                            <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-button">
-                                <mat-icon>account_circle</mat-icon>
-                            </button>
-                            <mat-menu #userMenu="matMenu" class="user-dropdown">
-                                <div class="user-info">
-                                    <mat-icon>person</mat-icon>
-                                    <div class="user-details">
-                                        <p class="user-name">{{ currentUser?.name }}</p>
-                                        <p class="user-email">{{ currentUser?.email }}</p>
-                                    </div>
-                                </div>
-                                <mat-divider></mat-divider>
-                                <button mat-menu-item routerLink="/profile">
-                                    <mat-icon>person</mat-icon>
-                                    <span>My Profile</span>
-                                </button>
-                                <button mat-menu-item routerLink="/orders">
-                                    <mat-icon>receipt_long</mat-icon>
-                                    <span>My Orders</span>
-                                </button>
-                                <button mat-menu-item routerLink="/wishlist">
-                                    <mat-icon>favorite</mat-icon>
-                                    <span>Wishlist</span>
-                                </button>
-                                <button mat-menu-item routerLink="/admin" *ngIf="authService.isAdmin()">
-                                    <mat-icon>admin_panel_settings</mat-icon>
-                                    <span>Admin Panel</span>
-                                </button>
-                                <mat-divider></mat-divider>
-                                <button mat-menu-item (click)="logout()">
-                                    <mat-icon>logout</mat-icon>
-                                    <span>Logout</span>
-                                </button>
-                            </mat-menu>
-                        </div>
-
-                        <!-- Auth Buttons - Show when not authenticated -->
-                        <div *ngIf="!isAuthenticated" class="auth-buttons">
-                            <button mat-button routerLink="/login" class="login-button">
-                                <mat-icon>login</mat-icon>
-                                <span class="d-none d-md-inline">Login</span>
-                            </button>
-                            <button mat-raised-button color="primary" routerLink="/register" class="register-button d-none d-sm-inline-flex">
-                                Sign Up
-                            </button>
-                        </div>
-                    </div>
+                <!-- Right: auth + cart -->
+                <div class="d-flex align-items-center gap-2">
+                    <ng-container *ngIf="(isAuthenticated$ | async) === true; else guestLinks">
+                        <a routerLink="/admin" class="btn btn-sm btn-outline-secondary d-none d-md-inline-flex">Admin</a>
+                        <button class="btn btn-sm btn-outline-danger d-none d-md-inline-flex" (click)="auth.logout()">Se déconnecter</button>
+                    </ng-container>
+                    <ng-template #guestLinks>
+                        <a routerLink="/login" class="btn btn-sm btn-outline-secondary d-none d-md-inline-flex">Se connecter</a>
+                        <a routerLink="/signup" class="btn btn-sm btn-primary d-none d-md-inline-flex">S'inscrire</a>
+                    </ng-template>
+                    <button mat-icon-button aria-label="Basket" class="position-relative rounded-1" (click)="drawer.toggle()">
+                        <mat-icon>shopping_cart</mat-icon>
+                        <span class="position-absolute top-10 start-100 translate-middle text-danger badge rounded-pill bg-pizza-red" style="transform: scale(0.9); font-size: 0.9rem;">
+                          {{ productsInBasketCount.getValue() }}
+                        </span>
+                    </button>
                 </div>
             </div>
         </mat-toolbar>

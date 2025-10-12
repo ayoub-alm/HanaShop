@@ -7,27 +7,24 @@ import { KioskComponent } from './kiosk/kiosk.component';
 import {IndexComponent} from "./index/index.component";
 import {ProductAllComponent} from "./product-all/product-all.component";
 import {ValidateOrderComponent} from "./validate-order/validate-order.component";
+
 import {LoginComponent} from "../auth/login/login.component";
 import {RegisterComponent} from "../auth/register/register.component";
 import {authGuard} from "../guards/auth.guard";
 
 const routes: Routes = [
-  // Auth routes (outside main layout)
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {      path: '', component: IndexComponent,
+        children: [
+          { path: '', component: HomePageComponent },
+          { path: 'categories', component: CategoriesSectionComponent },
+          { path: 'product/show/:ref', component: ShowProductComponent },
+          { path: 'products', component: ProductAllComponent },
+          { path: 'kiosk', component: KioskComponent },
+          { path: 'validate-order', component: ValidateOrderComponent, canActivate: [authGuard] },
+        ]},
+  { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
+  { path: 'signup', loadComponent: () => import('./signup/signup.component').then(m => m.SignupComponent) },
 
-  // Main application routes (with navbar)
-  {
-    path: '', component: IndexComponent,
-    children: [
-      { path: '', component: HomePageComponent },
-      { path: 'categories', component: CategoriesSectionComponent },
-      { path: 'product/show/:ref', component: ShowProductComponent },
-      { path: 'products', component: ProductAllComponent },
-      { path: 'kiosk', component: KioskComponent },
-      { path: 'validate-order', component: ValidateOrderComponent, canActivate: [authGuard] },
-    ]
-  },
 ];
 
 

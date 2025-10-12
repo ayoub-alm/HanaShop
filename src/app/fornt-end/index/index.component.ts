@@ -17,6 +17,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatDivider} from "@angular/material/divider";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import AOS from "aos";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -42,15 +43,9 @@ import AOS from "aos";
 })
 export class IndexComponent implements OnInit{
     productsInBasketCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    isAuthenticated = false;
-    currentUser: any = null;
-
-    constructor(
-      private orderService: OrderService,
-      public router: Router,
-      public authService: AuthService
-    ) {}
-
+    isAuthenticated$ = this.auth.isAuthenticated$;
+    constructor(private orderService: OrderService, public router: Router, private auth: AuthService) {
+    }
     ngOnInit(): void {
         this.orderService.order$.subscribe((data)=>{
             this.productsInBasketCount.next(data.products.length)

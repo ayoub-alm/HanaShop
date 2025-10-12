@@ -10,6 +10,8 @@ import {MatCard} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {BehaviorSubject, Subscription} from "rxjs";
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
 import {ProductModel} from "../../models/product.model";
 import {ProductCategoryService} from "../../services/ProductCategoryService";
 import {ProductsServices} from "../../services/products.services";
@@ -47,7 +49,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     MatSelect,
     MatOption,
     MatButton,
-    MatPaginator
+    MatPaginatorModule
   ],
   templateUrl: './product-all.component.html',
   styleUrl: './product-all.component.css'
@@ -56,47 +58,27 @@ export class ProductAllComponent implements OnInit {
   subscriptions: Subscription[] = [];
   allProducts: ProductModel[] = [];
   selectedProducts: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
-  
-  // Pagination properties
-  pageSize = 12;
+  pagedProducts: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
   pageIndex = 0;
-  totalProducts = 0;
-  pageSizeOptions = [6, 12, 24, 48];
+  pageSize = 9;
+  totalItems = 0;
 
-  // Expose Math to template
-  Math = Math;
-
-  constructor(
-    private categoryService: ProductCategoryService,
-    private productService: ProductsServices,
-    private orderService: OrderService,
-    private dialog: MatDialog,
-    private snackBar: MatSnackBar
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  constructor(private categoryService: ProductCategoryService,
+              private productService: ProductsServices,
+              private orderService: OrderService,
+              private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.productService.getProducts().pipe().subscribe(
-        products => {
-          this.allProducts = products;
-          this.totalProducts = products.length;
-          this.updateDisplayedProducts();
-        }
-      )
-    );
-  }
-
-  /**
-   * Update displayed products based on pagination
-   */
-  updateDisplayedProducts(): void {
-    const startIndex = this.pageIndex * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    const paginatedProducts = this.allProducts.slice(startIndex, endIndex);
-    this.selectedProducts.next(paginatedProducts);
-    
-    // Scroll to top of products section
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.productService.getProducts().pipe().subscribe(
+            products => {
+              this.selectedProducts.next(products)
+              this.totalItems = products.length;
+              this.updatePagedProducts();
+            }
+        ));
   }
 
   /**
@@ -135,7 +117,17 @@ export class ProductAllComponent implements OnInit {
     });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updatePagedProducts();
   }
+
+  private updatePagedProducts(): void {
+    const all = this.selectedProducts.getValue();
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedProducts.next(all.slice(start, end));
+  }
+
 }

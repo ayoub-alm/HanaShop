@@ -83,8 +83,8 @@
                 <!-- Products Grid -->
                 <div class="row g-4">
                     <div
-                            *ngFor="let item of selectedProducts | async"
-                            class="col-sm-6 col-lg-4"
+                            *ngFor="let item of pagedProducts | async"
+                            class="col-sm-6 col-md-4 col-lg-4"
                     >
                         <mat-card class="h-100 product-card hover-scale">
                             <a
@@ -133,17 +133,13 @@
                     </div>
                 </div>
 
-                <!-- Pagination -->
-                <div class="pagination-container mt-5">
+                <div class="d-flex justify-content-center mt-4">
                     <mat-paginator
-                            [length]="totalProducts"
-                            [pageSize]="pageSize"
-                            [pageIndex]="pageIndex"
-                            [pageSizeOptions]="pageSizeOptions"
-                            (page)="onPageChange($event)"
-                            aria-label="Select page"
-                            class="custom-paginator"
-                    >
+                        [length]="totalItems"
+                        [pageIndex]="pageIndex"
+                        [pageSize]="pageSize"
+                        [pageSizeOptions]="[6, 9, 12, 24]"
+                        (page)="onPageChange($event)">
                     </mat-paginator>
                 </div>
             </div>
