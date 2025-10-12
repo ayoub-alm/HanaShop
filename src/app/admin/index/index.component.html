@@ -48,11 +48,29 @@
         </a>
         <mat-divider></mat-divider>
 
+        <!-- Categories -->
+        <a [routerLink]="'/admin/categories'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">category</mat-icon>
+            Catégories
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
         <!-- Caisse -->
         <a [routerLink]="'/admin/caisse'" mat-list-item class="d-flex align-items-center">
           <button mat-button class="text-start  text-secondary">
             <mat-icon class="me-2">account_balance_wallet</mat-icon>
             Caisse
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Users -->
+        <a [routerLink]="'/admin/users'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">people</mat-icon>
+            Utilisateurs
           </button>
         </a>
         <mat-divider></mat-divider>

@@ -10,6 +10,8 @@ import {MatCard} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {BehaviorSubject, Subscription} from "rxjs";
+import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import { ViewChild } from '@angular/core';
 import {ProductModel} from "../../models/product.model";
 import {ProductCategoryService} from "../../services/ProductCategoryService";
 import {ProductsServices} from "../../services/products.services";
@@ -40,7 +42,8 @@ import {MatOption, MatSelect} from "@angular/material/select";
     MatFormField,
     MatSelect,
     MatOption,
-    MatButton
+    MatButton,
+    MatPaginatorModule
   ],
   templateUrl: './product-all.component.html',
   styleUrl: './product-all.component.css'
@@ -48,6 +51,12 @@ import {MatOption, MatSelect} from "@angular/material/select";
 export class ProductAllComponent implements OnInit {
   subscriptions: Subscription[] = [];
   selectedProducts: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
+  pagedProducts: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
+  pageIndex = 0;
+  pageSize = 9;
+  totalItems = 0;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private categoryService: ProductCategoryService,
               private productService: ProductsServices,
               private orderService: OrderService,
@@ -59,6 +68,8 @@ export class ProductAllComponent implements OnInit {
         this.productService.getProducts().pipe().subscribe(
             products => {
               this.selectedProducts.next(products)
+              this.totalItems = products.length;
+              this.updatePagedProducts();
             }
         ));
   }
@@ -75,6 +86,19 @@ export class ProductAllComponent implements OnInit {
     this.orderService.order$.subscribe(order => {
       console.log('Updated order:', order);
     });
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updatePagedProducts();
+  }
+
+  private updatePagedProducts(): void {
+    const all = this.selectedProducts.getValue();
+    const start = this.pageIndex * this.pageSize;
+    const end = start + this.pageSize;
+    this.pagedProducts.next(all.slice(start, end));
   }
 
 }
