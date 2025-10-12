@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './index/index.component';
-import path from 'path';
 import { PatientAllComponent } from './patient-all/patient-all.component';
 import { ProductsComponent } from './products/products.component';
 import {OrdersComponent} from "./orders/orders.component";
 import {OrdersShowComponent} from "./orders-show/orders-show.component";
 import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
+
 import { CategoriesComponent } from './categories/categories.component';
 import { UsersComponent } from './users/users.component';
 import { authGuard } from '../guards/auth.guard';
@@ -21,6 +21,7 @@ const routes: Routes = [
     {path:'orders/show', component:OrdersShowComponent},
     {path:'users', component:UsersComponent},
   ]}
+
 ];
 
 @NgModule({

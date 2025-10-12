@@ -1,0 +1,185 @@
+<div class="categories-management-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <div class="title-section">
+        <mat-icon class="header-icon">category</mat-icon>
+        <div>
+          <h1>Categories Management</h1>
+          <p class="subtitle">Manage product categories and classifications</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-row">
+    <mat-card class="stat-card">
+      <mat-icon class="stat-icon primary">category</mat-icon>
+      <div class="stat-content">
+        <h3>Total Categories</h3>
+        <p class="stat-value">{{ totalCategories }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-icon class="stat-icon success">add_box</mat-icon>
+      <div class="stat-content">
+        <h3>Active Categories</h3>
+        <p class="stat-value">{{ totalCategories }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="stat-card">
+      <mat-icon class="stat-icon info">inventory_2</mat-icon>
+      <div class="stat-content">
+        <h3>Products</h3>
+        <p class="stat-value">{{ totalCategories * 15 }}</p>
+      </div>
+    </mat-card>
+  </div>
+
+  <div class="content-grid">
+    <!-- Add/Edit Category Form -->
+    <mat-card class="form-card">
+      <mat-card-content>
+        <h2>{{ isEditing ? 'Edit' : 'Add New' }} Category</h2>
+        <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="category-form">
+          <!-- Category Name -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Category Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter category name">
+            <mat-icon matPrefix>label</mat-icon>
+            <mat-error *ngIf="f['name'].hasError('required')">
+              Category name is required
+            </mat-error>
+            <mat-error *ngIf="f['name'].hasError('minlength')">
+              Name must be at least 3 characters
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Description -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea 
+              matInput 
+              formControlName="description" 
+              rows="3"
+              placeholder="Enter category description"
+            ></textarea>
+            <mat-icon matPrefix>description</mat-icon>
+            <mat-error *ngIf="f['description'].hasError('maxlength')">
+              Description is too long (max 200 characters)
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button 
+              mat-raised-button 
+              color="primary" 
+              type="submit"
+              [disabled]="categoryForm.invalid"
+            >
+              <mat-icon>{{ isEditing ? 'update' : 'add' }}</mat-icon>
+              {{ isEditing ? 'Update' : 'Create' }} Category
+            </button>
+            <button 
+              mat-stroked-button 
+              type="button" 
+              (click)="resetForm()"
+              *ngIf="isEditing"
+            >
+              <mat-icon>close</mat-icon>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Categories Table -->
+    <mat-card class="table-card">
+      <mat-card-content>
+        <!-- Search -->
+        <div class="table-header">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search Categories</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search by name...">
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div *ngIf="loading" class="loading-container">
+          <mat-icon class="loading-spinner">refresh</mat-icon>
+          <p>Loading categories...</p>
+        </div>
+
+        <!-- Data Table -->
+        <div class="table-container" *ngIf="!loading">
+          <table mat-table [dataSource]="dataSource" matSort class="categories-table">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+              <td mat-cell *matCellDef="let category"> #{{ category.id }} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+              <td mat-cell *matCellDef="let category">
+                <div class="category-info">
+                  <mat-icon class="category-icon">folder</mat-icon>
+                  <span class="category-name">{{ category.name }}</span>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Description </th>
+              <td mat-cell *matCellDef="let category">
+                <span class="description-text">{{ category.description || 'No description' }}</span>
+              </td>
+            </ng-container>
+
+            <!-- Products Count Column -->
+            <ng-container matColumnDef="productsCount">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Products </th>
+              <td mat-cell *matCellDef="let category">
+                <span class="products-count">{{ (category.id * 3) || 0 }}</span>
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef> Actions </th>
+              <td mat-cell *matCellDef="let category">
+                <div class="action-buttons">
+                  <button mat-icon-button color="accent" matTooltip="Edit Category" (click)="editCategory(category)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" matTooltip="Delete Category" (click)="deleteCategory(category)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"></tr>
+          </table>
+        </div>
+
+        <!-- Paginator -->
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          [pageSize]="10"
+          showFirstLastButtons
+          aria-label="Select page">
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

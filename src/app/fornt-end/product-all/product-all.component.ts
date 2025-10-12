@@ -23,7 +23,13 @@ import {ProductInOrderDto} from "../../Dtos/product-in-order.dto";
 import {MatSlider, MatSliderRangeThumb, MatSliderThumb} from "@angular/material/slider";
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
+/**
+ * Product All Component
+ * Displays all products with filtering, sorting, and pagination
+ */
 @Component({
   selector: 'app-product-all',
   standalone: true,
@@ -50,6 +56,7 @@ import {MatOption, MatSelect} from "@angular/material/select";
 })
 export class ProductAllComponent implements OnInit {
   subscriptions: Subscription[] = [];
+  allProducts: ProductModel[] = [];
   selectedProducts: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
   pagedProducts: BehaviorSubject<ProductModel[]> = new BehaviorSubject<ProductModel[]>([]);
   pageIndex = 0;
@@ -74,14 +81,36 @@ export class ProductAllComponent implements OnInit {
         ));
   }
 
+  /**
+   * Handle page change event
+   */
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updateDisplayedProducts();
+  }
+
+  /**
+   * Add product to basket
+   */
   addToBasket(product: ProductModel): void {
     // Create a ProductInOrderDto from ProductModel
     const productInOrder: ProductInOrderDto = {
       product: product,
       quantity: 1 // default quantity can be set here, or you can make it dynamic
     };
+    
     // Add the product to the order
     this.orderService.addProductToOrder(productInOrder);
+    
+    // Show success message
+    this.snackBar.open(`${product.name} added to cart!`, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'end',
+      verticalPosition: 'top',
+      panelClass: ['success-snackbar']
+    });
+    
     // Log the updated order by subscribing to the observable
     this.orderService.order$.subscribe(order => {
       console.log('Updated order:', order);

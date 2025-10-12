@@ -1,28 +1,144 @@
-<section class=" w-100" >
-    <div class="container-lg container-fluid shadow-sm rounded-5  header" >
-        <div class="row">
-            <div class="col-lg-5 col-12 m-auto text-center">
-                <div class="m-auto p-5 text-center title-text text-dark">
-                    <img src="/logo.jpeg"  alt="" class="shadow rounded-5  img-fluid border-dark">
-                    <!--                        <div class="wrapper">-->
-                    <!--&lt;!&ndash;                            <p class="typing-demo fs-5 text-dark  fw-bolder">&ndash;&gt;-->
-                    <!--&lt;!&ndash;                                Your Destination for Delicious Moments.&ndash;&gt;-->
-                    <!--&lt;!&ndash;                            </p>&ndash;&gt;-->
-                    <!--                        </div>-->
+<!-- Enhanced Hero Section -->
+<section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <!-- Left Side - Hero Content -->
+            <div class="col-lg-6 col-12 hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <span class="hero-badge">
+                    <mat-icon>verified</mat-icon>
+                    100% Authentic Products
+                </span>
+                <h1 class="hero-title">
+                    Discover the Secret of
+                    <span class="gradient-text">Perfect American Skin</span>
+                    Now in Morocco
+                </h1>
+                <p class="hero-subtitle">
+                    Premium quality beauty products, certified and authentic. Transform your skincare routine with the best brands from around the world.
+                </p>
+
+                <!-- Features List -->
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <mat-icon>local_shipping</mat-icon>
+                        <div>
+                            <strong>Free Delivery</strong>
+                            <span>On orders over 500 MAD</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <mat-icon>verified</mat-icon>
+                        <div>
+                            <strong>100% Authentic</strong>
+                            <span>Certified products only</span>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <mat-icon>support_agent</mat-icon>
+                        <div>
+                            <strong>24/7 Support</strong>
+                            <span>Always here to help</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="hero-cta">
+                    <a routerLink="/products">
+                        <button mat-raised-button color="primary" class="cta-primary">
+                            <mat-icon>shopping_bag</mat-icon>
+                            Shop Now
+                        </button>
+                    </a>
+                    <a routerLink="/" fragment="categories">
+                        <button mat-stroked-button class="cta-secondary">
+                            <mat-icon>category</mat-icon>
+                            View Brands
+                        </button>
+                    </a>
+                </div>
+
+                <!-- Trust Indicators -->
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <strong>5000+</strong>
+                        <span>Happy Customers</span>
+                    </div>
+                    <div class="trust-item">
+                        <strong>50+</strong>
+                        <span>Premium Brands</span>
+                    </div>
+                    <div class="trust-item">
+                        <strong>4.9★</strong>
+                        <span>Customer Rating</span>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-7 col-12 m-auto p-5 ">
-                <p class="fs-2  logo-dark-color fw-semibold ">
-                    Le secret des peaux <br> parfaites american, <br> maintenant au Maroc.
-                </p>
-                <p>Produits 100% authentiques & certifiés</p>
-                <a routerLink="/" fragment="categories">  <button mat-raised-button color="primary" >
-                    Découvrez nos marques 👇
-                </button></a>
 
-
+            <!-- Right Side - Hero Image -->
+            <div class="col-lg-6 col-12 hero-image-container" data-aos="fade-left" data-aos-duration="1000">
+                <div class="hero-image-wrapper">
+                    <img src="/logo.jpeg" alt="Hana Shop" class="hero-image">
+                    <div class="floating-card card-1">
+                        <mat-icon>verified</mat-icon>
+                        <span>Certified Products</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <mat-icon>local_shipping</mat-icon>
+                        <span>Fast Delivery</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <mat-icon>thumb_up</mat-icon>
+                        <span>Best Quality</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features-section">
+    <div class="container">
+        <div class="section-header text-center" data-aos="fade-up">
+            <h2 class="section-title">Why Choose Hana Shop?</h2>
+            <p class="section-subtitle">Experience the best in beauty and skincare</p>
+        </div>
+        
+        <div class="row g-4 mt-4">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <mat-card class="feature-card">
+                    <div class="feature-icon">
+                        <mat-icon>verified_user</mat-icon>
+                    </div>
+                    <h3>100% Authentic</h3>
+                    <p>All our products are certified and sourced directly from official distributors</p>
+                </mat-card>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <mat-card class="feature-card">
+                    <div class="feature-icon">
+                        <mat-icon>payments</mat-icon>
+                    </div>
+                    <h3>Secure Payment</h3>
+                    <p>Multiple payment options with secure checkout for your peace of mind</p>
+                </mat-card>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <mat-card class="feature-card">
+                    <div class="feature-icon">
+                        <mat-icon>autorenew</mat-icon>
+                    </div>
+                    <h3>Easy Returns</h3>
+                    <p>30-day return policy on all products. Your satisfaction is guaranteed</p>
+                </mat-card>
+            </div>
+        </div>
+    </div>
 </section>
