@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {BasketComponent} from "../basket/basket.component";
 import {CategoriesSectionComponent} from "../categories-section/categories-section.component";
 import {ContactUsComponent} from "../contact-us/contact-us.component";
@@ -9,7 +10,7 @@ import {MatIconButton, MatButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
 import {PartneresComponent} from "../partneres/partneres.component";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {OrderService} from "../../services/OrderService";
 import {AuthService} from "../../services/auth.service";
 import {CommonModule} from "@angular/common";
@@ -23,6 +24,7 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-index',
   standalone: true,
     imports: [
+        CommonModule,
         BasketComponent,
         MatDrawer,
         MatDrawerContainer,
@@ -43,10 +45,11 @@ import { AuthService } from '../../services/auth.service';
 })
 export class IndexComponent implements OnInit{
     productsInBasketCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    isAuthenticated$ = this.auth.isAuthenticated$;
-    constructor(private orderService: OrderService, public router: Router, private auth: AuthService) {
+    isAuthenticated$!: Observable<boolean>;
+    constructor(private orderService: OrderService, public router: Router, public auth: AuthService) {
     }
     ngOnInit(): void {
+        this.isAuthenticated$ = this.auth.isAuthenticated$;
         this.orderService.order$.subscribe((data)=>{
             this.productsInBasketCount.next(data.products.length)
         })
