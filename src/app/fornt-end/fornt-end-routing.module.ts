@@ -8,6 +8,10 @@ import {IndexComponent} from "./index/index.component";
 import {ProductAllComponent} from "./product-all/product-all.component";
 import {ValidateOrderComponent} from "./validate-order/validate-order.component";
 
+import {LoginComponent} from "../auth/login/login.component";
+import {RegisterComponent} from "../auth/register/register.component";
+import {authGuard} from "../guards/auth.guard";
+
 const routes: Routes = [
   {      path: '', component: IndexComponent,
         children: [
@@ -16,8 +20,11 @@ const routes: Routes = [
           { path: 'product/show/:ref', component: ShowProductComponent },
           { path: 'products', component: ProductAllComponent },
           { path: 'kiosk', component: KioskComponent },
-          { path: 'validate-order', component: ValidateOrderComponent },
+          { path: 'validate-order', component: ValidateOrderComponent, canActivate: [authGuard] },
         ]},
+  { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
+  { path: 'signup', loadComponent: () => import('./signup/signup.component').then(m => m.SignupComponent) },
+
 ];
 
 

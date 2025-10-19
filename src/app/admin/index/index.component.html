@@ -14,45 +14,104 @@
       <!-- Navigation List -->
       <mat-list class="mt-2 text-start">
         <!-- Dashboard -->
-        <a [routerLink]="'/admin'" mat-list-item class="d-flex align-items-center">
+        <a [routerLink]="'/admin/dashboard'" mat-list-item class="d-flex align-items-center" routerLinkActive="active">
           <button mat-button class="text-start  text-secondary">
             <mat-icon class="me-2">dashboard</mat-icon>
-            Tableau de bord
+            Dashboard
           </button>
         </a>
         <mat-divider></mat-divider>
 
-        <!-- Commandes -->
-        <a [routerLink]="'/admin/orders'" mat-list-item class="d-flex align-items-start">
+        <!-- Users Management -->
+        <a [routerLink]="'/admin/users'" mat-list-item class="d-flex align-items-center" routerLinkActive="active">
+          <button mat-button class="text-start text-secondary">
+            <mat-icon class="me-2">people</mat-icon>
+            Users Management
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Categories -->
+        <a [routerLink]="'/admin/categories'" mat-list-item class="d-flex align-items-center" routerLinkActive="active">
+          <button mat-button class="text-start text-secondary">
+            <mat-icon class="me-2">category</mat-icon>
+            Categories
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Products -->
+        <a [routerLink]="'/admin/products'" mat-list-item class="d-flex align-items-center" routerLinkActive="active">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">inventory_2</mat-icon>
+            Products
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Orders -->
+        <a [routerLink]="'/admin/orders'" mat-list-item class="d-flex align-items-start" routerLinkActive="active">
           <button mat-button class="text-start text-secondary">
             <mat-icon class="me-2">shopping_cart</mat-icon>
-            Commandes
+            Orders
           </button>
         </a>
         <mat-divider></mat-divider>
 
-        <!-- Livraisons -->
+        <!-- Deliveries -->
         <a [routerLink]="'/admin/livraisons'" mat-list-item class="d-flex align-items-center">
           <button mat-button class="text-start text-secondary">
             <mat-icon class="me-2">local_shipping</mat-icon>
-            Livraisons
+            Deliveries
           </button>
         </a>
-          <mat-divider></mat-divider>
-        <!-- Produits -->
-        <a [routerLink]="'/admin/products'" mat-list-item class="d-flex align-items-center">
+        <mat-divider></mat-divider>
+
+        <!-- Customers -->
+        <a [routerLink]="'/admin/patient'" mat-list-item class="d-flex align-items-center" routerLinkActive="active">
           <button mat-button class="text-start  text-secondary">
-            <mat-icon class="me-2">inventory_2</mat-icon>
-            Produits
+            <mat-icon class="me-2">group</mat-icon>
+            Customers
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Reports -->
+        <a [routerLink]="'/admin/reports'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">assessment</mat-icon>
+            Reports
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+
+        <!-- Settings -->
+        <a [routerLink]="'/admin/settings'" mat-list-item class="d-flex align-items-center">
+        <!-- Categories -->
+        <a [routerLink]="'/admin/categories'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">category</mat-icon>
+            Catégories
           </button>
         </a>
         <mat-divider></mat-divider>
 
         <!-- Caisse -->
         <a [routerLink]="'/admin/caisse'" mat-list-item class="d-flex align-items-center">
+
           <button mat-button class="text-start  text-secondary">
-            <mat-icon class="me-2">account_balance_wallet</mat-icon>
-            Caisse
+            <mat-icon class="me-2">settings</mat-icon>
+            Settings
+          </button>
+        </a>
+        <mat-divider></mat-divider>
+
+        <!-- Users -->
+        <a [routerLink]="'/admin/users'" mat-list-item class="d-flex align-items-center">
+          <button mat-button class="text-start  text-secondary">
+            <mat-icon class="me-2">people</mat-icon>
+            Utilisateurs
           </button>
         </a>
         <mat-divider></mat-divider>
