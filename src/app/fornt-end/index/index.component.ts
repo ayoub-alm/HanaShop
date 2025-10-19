@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {BasketComponent} from "../basket/basket.component";
-import {CategoriesSectionComponent} from "../categories-section/categories-section.component";
-import {ContactUsComponent} from "../contact-us/contact-us.component";
-import {HeaderSectionComponent} from "../header-section/header-section.component";
 import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material/sidenav";
 import {MatIcon} from "@angular/material/icon";
 import {MatIconButton, MatButton} from "@angular/material/button";
 import {MatToolbar} from "@angular/material/toolbar";
-import {PartneresComponent} from "../partneres/partneres.component";
-import {Router, RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from "@angular/router";
 import {BehaviorSubject, Observable} from "rxjs";
 import {OrderService} from "../../services/OrderService";
+import {AuthService} from "../../services/auth.service";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatDivider} from "@angular/material/divider";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-index',
@@ -24,14 +24,13 @@ import {OrderService} from "../../services/OrderService";
         MatDrawerContent,
         MatIcon,
         MatIconButton,
-        MatButton,
         MatToolbar,
         RouterOutlet,
         RouterLink,
         CommonModule,
         MatMenuModule,
-        MatDivider,
-        MatTooltipModule
+        MatTooltipModule,
+        RouterLinkActive
     ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css'
@@ -39,10 +38,10 @@ import {OrderService} from "../../services/OrderService";
 export class IndexComponent implements OnInit{
     productsInBasketCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     isAuthenticated$!: Observable<boolean>;
-    constructor(private orderService: OrderService, public router: Router, public auth: AuthService) {
+    constructor(private orderService: OrderService, public router: Router, public authService: AuthService) {
     }
     ngOnInit(): void {
-        this.isAuthenticated$ = this.auth.isAuthenticated$;
+        this.isAuthenticated$ = this.authService.isAuthenticated$;
         this.orderService.order$.subscribe((data)=>{
             this.productsInBasketCount.next(data.products.length)
         })
@@ -52,4 +51,6 @@ export class IndexComponent implements OnInit{
     logout(): void {
       this.authService.logout();
     }
+
+    protected readonly AuthService = AuthService;
 }

@@ -70,9 +70,11 @@ export class RegisterComponent implements OnInit {
     });
 
     // Redirect to home if already logged in
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    }
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      if (isAuth) {
+        this.router.navigate(['/']);
+      }
+    });
   }
 
   /**
@@ -122,13 +124,13 @@ export class RegisterComponent implements OnInit {
     };
 
     // Attempt registration
-    this.authService.register(userData)
+    this.authService.signup(userData)
       .subscribe({
         next: () => {
           // Redirect to home page after successful registration
           this.router.navigate(['/']);
         },
-        error: (error) => {
+        error: (error: any) => {
           this.errorMessage = error.error?.message || 'Registration failed. Please try again.';
           this.loading = false;
         }

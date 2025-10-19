@@ -1,10 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NavBarComponent} from "../nav-bar/nav-bar.component";
 import {FooterComponent} from "../footer/footer.component";
-import {CategoriesSectionComponent} from "../categories-section/categories-section.component";
-import {ContactUsComponent} from "../contact-us/contact-us.component";
-import {HeaderSectionComponent} from "../header-section/header-section.component";
-import {PartneresComponent} from "../partneres/partneres.component";
 import {AsyncPipe, NgForOf} from "@angular/common";
 import {MatCard} from "@angular/material/card";
 import {MatIcon} from "@angular/material/icon";
@@ -17,13 +12,11 @@ import {ProductCategoryService} from "../../services/ProductCategoryService";
 import {ProductsServices} from "../../services/products.services";
 import {OrderService} from "../../services/OrderService";
 import {MatDialog} from "@angular/material/dialog";
-import {ProductCategory} from "../../models/ProductCategory";
 import {RouterLink} from "@angular/router";
 import {ProductInOrderDto} from "../../Dtos/product-in-order.dto";
 import {MatSlider, MatSliderRangeThumb, MatSliderThumb} from "@angular/material/slider";
 import {MatFormField, MatHint, MatLabel} from "@angular/material/form-field";
 import {MatOption, MatSelect} from "@angular/material/select";
-import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 /**
@@ -38,13 +31,11 @@ import {MatSnackBar} from "@angular/material/snack-bar";
     AsyncPipe,
     MatCard,
     MatIcon,
-    MatIconButton,
     NgForOf,
     RouterLink,
     MatSlider,
     MatHint,
     MatSliderRangeThumb,
-    MatLabel,
     MatFormField,
     MatSelect,
     MatOption,
@@ -67,7 +58,7 @@ export class ProductAllComponent implements OnInit {
   constructor(private categoryService: ProductCategoryService,
               private productService: ProductsServices,
               private orderService: OrderService,
-              private dialog: MatDialog,
+              private dialog: MatDialog,private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -87,7 +78,6 @@ export class ProductAllComponent implements OnInit {
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.updateDisplayedProducts();
   }
 
   /**
@@ -117,11 +107,7 @@ export class ProductAllComponent implements OnInit {
     });
   }
 
-  onPageChange(event: PageEvent): void {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    this.updatePagedProducts();
-  }
+
 
   private updatePagedProducts(): void {
     const all = this.selectedProducts.getValue();
@@ -130,4 +116,6 @@ export class ProductAllComponent implements OnInit {
     this.pagedProducts.next(all.slice(start, end));
   }
 
+    protected readonly Math = Math;
+    totalProducts: any;
 }
