@@ -1,13 +1,9 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection, inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
 import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
-import { authInterceptor } from './interceptors/auth.interceptor';
-
-import { inject } from '@angular/core';
 import { AuthService } from './services/auth.service';
 
 
@@ -16,10 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
-
     provideAnimationsAsync(),
-
-
     provideHttpClient(
       withFetch(),
       withInterceptors([
@@ -33,8 +26,6 @@ export const appConfig: ApplicationConfig = {
           return next(req);
         }
       ])
-    ),
-    provideAnimationsAsync()
-
+    )
   ]
 };
