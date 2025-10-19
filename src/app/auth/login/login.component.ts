@@ -60,9 +60,11 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
     // Redirect to home if already logged in
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate([this.returnUrl]);
-    }
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      if (isAuth) {
+        this.router.navigate([this.returnUrl]);
+      }
+    });
   }
 
   /**
@@ -87,7 +89,10 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     // Attempt login
-    this.authService.login(this.f['email'].value, this.f['password'].value)
+    this.authService.login({
+      email: this.f['email'].value,
+      password: this.f['password'].value
+    })
       .subscribe({
         next: (response) => {
           // Redirect based on user role

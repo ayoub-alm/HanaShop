@@ -5,42 +5,6 @@
 
     <mat-drawer-content class="bg-white">
         <!-- Enhanced Navigation Bar -->
-        <mat-toolbar class="enhanced-navbar mat-elevation-z3">
-            <div class="container-fluid">
-                <div class="navbar-content">
-                    <!-- Logo Section -->
-                    <div class="nav-logo">
-                        <button mat-icon-button class="menu-button d-lg-none" aria-label="Menu">
-                            <mat-icon>menu</mat-icon>
-                        </button>
-                        <a routerLink="/" class="brand-link">
-                            <img src="/logo.png" alt="Hana Shop" class="brand-logo">
-                            <span class="brand-name">Hana Shop</span>
-                        </a>
-                    </div>
-
-                    <!-- Navigation Links -->
-                    <div class="nav-links d-none d-lg-flex">
-                        <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                            <mat-icon>home</mat-icon>
-                            <span>Home</span>
-                        </a>
-                        <a routerLink="/products" class="nav-link" routerLinkActive="active">
-                            <mat-icon>shopping_bag</mat-icon>
-                            <span>Products</span>
-                        </a>
-                        <a routerLink="/" fragment="categories" class="nav-link">
-                            <mat-icon>category</mat-icon>
-                            <span>Categories</span>
-                        </a>
-                        <a routerLink="/kiosk" class="nav-link" routerLinkActive="active">
-                            <mat-icon>store</mat-icon>
-                            <span>Kiosk</span>
-                        </a>
-                    </div>
-
-<!--            </div>-->
-<!--        </mat-toolbar>-->
         <mat-toolbar class="mat-elevation-z2 bg-white">
             <div class="container-fluid d-flex align-items-center justify-content-between w-100">
                 <!-- Left: brand + links -->
@@ -58,7 +22,7 @@
                 <div class="d-flex align-items-center gap-2">
                     <ng-container *ngIf="(isAuthenticated$ | async) === true; else guestLinks">
                         <a routerLink="/admin" class="btn btn-sm btn-outline-secondary d-none d-md-inline-flex">Admin</a>
-                        <button class="btn btn-sm btn-outline-danger d-none d-md-inline-flex" (click)="auth.logout()">Se déconnecter</button>
+                        <button class="btn btn-sm btn-outline-danger d-none d-md-inline-flex" (click)="authService.logout()">Se déconnecter</button>
                     </ng-container>
                     <ng-template #guestLinks>
                         <a routerLink="/login" class="btn btn-sm btn-outline-secondary d-none d-md-inline-flex">Se connecter</a>
@@ -77,3 +41,4 @@
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>
+

@@ -14,10 +14,13 @@ export class AuthService {
   private readonly tokenKey = 'auth_token';
   private readonly baseUrl = environment.apiBaseUrl;
 
-  private isAuthenticatedSubject = new BehaviorSubject<boolean>(this.hasToken());
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public readonly isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
-  constructor(private http: HttpClient, private storage: LocalStorageService) {}
+  constructor(private http: HttpClient, private storage: LocalStorageService) {
+    // Initialize authentication state after constructor
+    this.isAuthenticatedSubject.next(this.hasToken());
+  }
 
   // Returns whether a token exists in storage
   private hasToken(): boolean {

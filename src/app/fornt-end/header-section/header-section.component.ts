@@ -3,7 +3,6 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {RouterLink} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {MatCard} from "@angular/material/card";
-import AOS from "aos";
 
 /**
  * Header Section Component
@@ -24,7 +23,6 @@ import AOS from "aos";
 })
 export class HeaderSectionComponent implements OnInit {
   ngOnInit(): void {
-    // Initialize AOS animations if not already initialized
-    AOS.refresh();
+    // AOS animations removed
   }
 }
