@@ -11,7 +11,6 @@ import { ContactUsComponent } from "../contact-us/contact-us.component";
 import { MatSidenavModule} from "@angular/material/sidenav";
 
 import {BehaviorSubject} from "rxjs";
-import AOS from "aos";
 import { Router, NavigationEnd } from '@angular/router';
 @Component({
   selector: 'app-home-page',
@@ -36,19 +35,6 @@ export class HomePageComponent implements OnInit{
         this.orderService.order$.subscribe((data)=>{
             this.productsInBasketCount.next(data.products.length)
         })
-
-        AOS.init({
-            duration: 1200, // Animation duration (optional)
-            easing: 'ease', // Animation easing (optional)
-            once: true, // Run animation only once (optional)
-            mirror: true, // Trigger animation when scrolling back (optional)
-            offset: 200, // Set the trigger offset (optional)
-        });
-
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-                AOS.refresh();
-            }
-        });
+        // AOS animations removed
     }
 }

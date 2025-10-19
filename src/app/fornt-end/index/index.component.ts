@@ -11,7 +11,6 @@ import {PartneresComponent} from "../partneres/partneres.component";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
 import {OrderService} from "../../services/OrderService";
-import AOS from "aos";
 
 @Component({
   selector: 'app-index',
@@ -38,13 +37,6 @@ export class IndexComponent implements OnInit{
         this.orderService.order$.subscribe((data)=>{
             this.productsInBasketCount.next(data.products.length)
         })
-
-        AOS.init({
-            // duration: 1400, // Animation duration (optional)
-            easing: 'fade', // Animation easing (optional)
-            // once: true, // Run animation only once (optional)
-            mirror: true, // Trigger animation when scrolling back (optional)
-            offset: -100, // Set the trigger offset (optional)
-        });
+        // AOS animations removed
     }
 }
