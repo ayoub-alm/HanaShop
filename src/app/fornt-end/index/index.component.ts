@@ -12,13 +12,6 @@ import {PartneresComponent} from "../partneres/partneres.component";
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {BehaviorSubject, Observable} from "rxjs";
 import {OrderService} from "../../services/OrderService";
-import {AuthService} from "../../services/auth.service";
-import {CommonModule} from "@angular/common";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatDivider} from "@angular/material/divider";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import AOS from "aos";
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-index',
@@ -53,24 +46,7 @@ export class IndexComponent implements OnInit{
         this.orderService.order$.subscribe((data)=>{
             this.productsInBasketCount.next(data.products.length)
         })
-
-        // Subscribe to authentication status
-        this.authService.isAuthenticated$.subscribe(isAuth => {
-          this.isAuthenticated = isAuth;
-        });
-
-        // Subscribe to current user
-        this.authService.currentUser.subscribe(user => {
-          this.currentUser = user;
-        });
-
-        AOS.init({
-            // duration: 1400, // Animation duration (optional)
-            easing: 'fade', // Animation easing (optional)
-            // once: true, // Run animation only once (optional)
-            mirror: true, // Trigger animation when scrolling back (optional)
-            offset: -100, // Set the trigger offset (optional)
-        });
+        // AOS animations removed
     }
 
     logout(): void {
